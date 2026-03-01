@@ -60,12 +60,12 @@ export default function RoomSection({ rootRef, onScrollToBooking }: RoomSectionP
       const scrollLeft = el.scrollLeft;
       const cardWidth = el.offsetWidth * 0.85; // Card is 85vw
       const index = Math.round(scrollLeft / cardWidth);
-      if (index !== activeRoom) setActiveRoom(index);
+      setActiveRoom(prev => (prev !== index ? index : prev));
     };
 
     el.addEventListener('scroll', handleScroll, { passive: true });
     return () => el.removeEventListener('scroll', handleScroll);
-  }, [activeRoom]);
+  }, []); // Remove activeRoom dependency to prevent gesture interruption
 
   useLayoutEffect(() => {
     const section = rootRef.current;
@@ -177,12 +177,12 @@ export default function RoomSection({ rootRef, onScrollToBooking }: RoomSectionP
         {/* Card Snap Slider */}
         <div
           ref={mobileRef}
-          className="flex overflow-x-auto scroll-snap-x-mandatory no-scrollbar space-x-4 px-6 snap-x"
+          className="flex overflow-x-auto scroll-snap-x-mandatory no-scrollbar px-6 snap-x scroll-pl-6"
         >
           {rooms.map((room) => (
             <div
               key={room.id}
-              className="flex-shrink-0 w-[85vw] scroll-snap-align-center first:pl-0 last:pr-6"
+              className="flex-shrink-0 w-[85vw] snap-start pr-4 last:pr-0"
             >
               <div className="relative aspect-[4/5] rounded-sm overflow-hidden group shadow-2xl shadow-black/10">
                 {/* Background Image */}
