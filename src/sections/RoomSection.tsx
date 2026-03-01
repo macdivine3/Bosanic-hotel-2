@@ -2,7 +2,7 @@ import { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Maximize2, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -179,7 +179,7 @@ export default function RoomSection({ rootRef, onScrollToBooking }: RoomSectionP
           ref={mobileRef}
           className="flex overflow-x-auto scroll-snap-x-mandatory no-scrollbar space-x-4 px-6 snap-x"
         >
-          {rooms.map((room, index) => (
+          {rooms.map((room) => (
             <div
               key={room.id}
               className="flex-shrink-0 w-[85vw] scroll-snap-align-center first:pl-0 last:pr-6"
