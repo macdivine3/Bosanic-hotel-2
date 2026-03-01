@@ -26,13 +26,16 @@ const reviews = [
   },
 ];
 
-export default function ReviewsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+interface ReviewsSectionProps {
+  rootRef: React.RefObject<HTMLElement | null>;
+}
+
+export default function ReviewsSection({ rootRef }: ReviewsSectionProps) {
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
-    const section = sectionRef.current;
+    const section = rootRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
@@ -47,7 +50,7 @@ export default function ReviewsSection() {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headingRef.current,
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -68,33 +71,33 @@ export default function ReviewsSection() {
             ease: 'power2.out',
             scrollTrigger: {
               trigger: card,
-              start: 'top 85%',
+              start: 'top 90%',
               toggleActions: 'play none none reverse',
             },
           }
         );
       });
-    }, section);
+    }, rootRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [rootRef]);
 
   return (
     <section
-      ref={sectionRef}
-      className="relative w-full bg-[#F6F7F6] py-24 lg:py-32"
+      ref={rootRef}
+      className="relative w-full bg-[#F6F7F6] py-16 lg:py-32"
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         {/* Heading */}
-        <div ref={headingRef} className="text-center mb-16 will-change-transform">
+        <div ref={headingRef} className="text-center mb-12 lg:mb-16 will-change-transform">
           <div className="section-label text-[#6B7280] mb-4">REVIEWS</div>
-          <h2 className="font-serif text-headline-sm lg:text-headline text-[#11130E]">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-headline text-[#11130E]">
             What guests are saying.
           </h2>
         </div>
 
         {/* Review Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {reviews.map((review, index) => (
             <div
               key={index}
@@ -118,10 +121,10 @@ export default function ReviewsSection() {
 
               {/* Author */}
               <div>
-                <div className="font-sans text-xs font-medium tracking-wide text-[#11130E] uppercase">
+                <div className="font-sans text-[10px] lg:text-xs font-medium tracking-widest text-[#11130E] uppercase">
                   {review.name}
                 </div>
-                <div className="font-sans text-xs text-[#6B7280] mt-1">
+                <div className="font-sans text-[10px] lg:text-xs text-[#6B7280] mt-2">
                   {review.meta}
                 </div>
               </div>

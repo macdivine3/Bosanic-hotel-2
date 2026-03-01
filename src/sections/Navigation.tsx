@@ -17,7 +17,13 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navigation() {
+interface NavigationProps {
+  sectionRefs: {
+    [key: string]: React.RefObject<HTMLElement | null>;
+  };
+}
+
+export default function Navigation({ sectionRefs }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,30 +36,35 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    // Standardize IDs (remove # if present)
+    const sectionId = id.replace('#', '');
+    const ref = sectionRefs[sectionId];
+
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (id === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
     setIsOpen(false);
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled
           ? 'bg-[#F6F7F6]/95 backdrop-blur-sm border-b border-black/5'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="flex items-center justify-between px-6 lg:px-12 py-5">
         {/* Logo */}
-        <a
-          href="#"
+        <button
+          onClick={() => scrollToSection('#')}
           className="font-sans text-sm font-semibold tracking-[0.2em] text-[#11130E] hover:opacity-70 transition-opacity"
         >
           BOSANIC
-        </a>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-10">

@@ -11,13 +11,16 @@ const galleryImages = [
   { src: '/gallery_food.jpg', alt: 'Food', className: 'col-span-2 row-span-1' },
 ];
 
-export default function GallerySection() {
-  const sectionRef = useRef<HTMLElement>(null);
+interface GallerySectionProps {
+  rootRef: React.RefObject<HTMLElement | null>;
+}
+
+export default function GallerySection({ rootRef }: GallerySectionProps) {
   const headingRef = useRef<HTMLDivElement>(null);
   const tilesRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
-    const section = sectionRef.current;
+    const section = rootRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
@@ -58,38 +61,39 @@ export default function GallerySection() {
           }
         );
 
-        // Subtle parallax
-        gsap.fromTo(
-          tile.querySelector('img'),
-          { y: 0 },
-          {
-            y: index === 0 ? -24 : -16,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: tile,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
+        // Subtle parallax (Desktop only for better performance)
+        if (window.innerWidth >= 1024) {
+          gsap.fromTo(
+            tile.querySelector('img'),
+            { y: 0 },
+            {
+              y: index === 0 ? -24 : -16,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: tile,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            }
+          );
+        }
       });
-    }, section);
+    }, rootRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [rootRef]);
 
   return (
     <section
-      ref={sectionRef}
-      id="gallery"
-      className="relative w-full bg-[#F6F7F6] py-24 lg:py-32"
+      ref={rootRef}
+      className="relative w-full bg-[#F6F7F6] py-16 lg:py-32"
     >
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         {/* Heading */}
-        <div ref={headingRef} className="text-center mb-16 will-change-transform">
+        <div ref={headingRef} className="text-center mb-12 lg:mb-16 will-change-transform">
           <div className="section-label text-[#6B7280] mb-4">GALLERY</div>
-          <h2 className="font-serif text-headline-sm lg:text-headline text-[#11130E]">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-headline text-[#11130E]">
             A few moments from Bosanic.
           </h2>
         </div>
@@ -111,7 +115,7 @@ export default function GallerySection() {
           {/* Top right tile */}
           <div
             ref={(el) => { tilesRef.current[1] = el; }}
-            className="col-span-1 row-span-1 aspect-[16/10] overflow-hidden will-change-transform"
+            className="col-span-1 row-span-1 aspect-square sm:aspect-video lg:aspect-[16/10] overflow-hidden will-change-transform"
           >
             <img
               src={galleryImages[1].src}
@@ -123,7 +127,7 @@ export default function GallerySection() {
           {/* Middle right tile */}
           <div
             ref={(el) => { tilesRef.current[2] = el; }}
-            className="col-span-1 row-span-1 aspect-[16/10] overflow-hidden will-change-transform"
+            className="col-span-1 row-span-1 aspect-square sm:aspect-video lg:aspect-[16/10] overflow-hidden will-change-transform"
           >
             <img
               src={galleryImages[2].src}
@@ -135,7 +139,7 @@ export default function GallerySection() {
           {/* Bottom wide tile */}
           <div
             ref={(el) => { tilesRef.current[3] = el; }}
-            className="col-span-2 lg:col-span-3 row-span-1 aspect-[21/9] overflow-hidden will-change-transform"
+            className="col-span-2 lg:col-span-3 row-span-1 aspect-[16/9] lg:aspect-[21/9] overflow-hidden will-change-transform"
           >
             <img
               src={galleryImages[3].src}

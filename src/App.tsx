@@ -17,51 +17,41 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const mainRef = useRef<HTMLDivElement>(null);
 
+  // Section Refs
+  const heroRef = useRef<HTMLElement>(null);
+  const roomsRef = useRef<HTMLElement>(null);
+  const amenitiesRef = useRef<HTMLElement>(null);
+  const diningRef = useRef<HTMLElement>(null);
+  const locationRef = useRef<HTMLElement>(null);
+  const galleryRef = useRef<HTMLElement>(null);
+  const reviewsRef = useRef<HTMLElement>(null);
+  const bookingRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
+
+  const sectionRefs = {
+    hero: heroRef,
+    rooms: roomsRef,
+    amenities: amenitiesRef,
+    dining: diningRef,
+    location: locationRef,
+    gallery: galleryRef,
+    reviews: reviewsRef,
+    booking: bookingRef,
+    contact: contactRef,
+  };
+
   useEffect(() => {
-    // Global snap for pinned sections
-    const setupGlobalSnap = () => {
-      const pinned = ScrollTrigger.getAll()
-        .filter(st => st.vars.pin)
-        .sort((a, b) => a.start - b.start);
-      
-      const maxScroll = ScrollTrigger.maxScroll(window);
-      if (!maxScroll || pinned.length === 0) return;
+    // GSAP Global Config for Performance
+    gsap.config({ force3D: true });
 
-      const pinnedRanges = pinned.map(st => ({
-        start: st.start / maxScroll,
-        end: (st.end ?? st.start) / maxScroll,
-        center: (st.start + ((st.end ?? st.start) - st.start) * 0.5) / maxScroll,
-      }));
-
-      ScrollTrigger.create({
-        snap: {
-          snapTo: (value: number) => {
-            const inPinned = pinnedRanges.some(
-              r => value >= r.start - 0.02 && value <= r.end + 0.02
-            );
-            if (!inPinned) return value;
-
-            const target = pinnedRanges.reduce(
-              (closest, r) =>
-                Math.abs(r.center - value) < Math.abs(closest - value)
-                  ? r.center
-                  : closest,
-              pinnedRanges[0]?.center ?? 0
-            );
-            return target;
-          },
-          duration: { min: 0.15, max: 0.35 },
-          delay: 0,
-          ease: 'power2.out',
-        },
-      });
-    };
-
-    // Delay to allow all section ScrollTriggers to initialize
-    const timer = setTimeout(setupGlobalSnap, 500);
+    // Normalize scroll for mobile (prevents address bar jumps)
+    const normalizeScroll = ScrollTrigger.normalizeScroll({
+      allowNestedScroll: true,
+      momentumLimit: 0.1,
+    });
 
     return () => {
-      clearTimeout(timer);
+      normalizeScroll.disable();
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
@@ -70,42 +60,21 @@ function App() {
     <div ref={mainRef} className="relative">
       {/* Grain overlay */}
       <div className="grain-overlay" />
-      
+
       {/* Navigation */}
-      <Navigation />
-      
+      <Navigation sectionRefs={sectionRefs} />
+
       {/* Main content */}
       <main className="relative">
-        {/* Section 1: Hero - z-10 */}
-        <div className="relative z-10">
-          <HeroSection />
-        </div>
-        
-        {/* Section 2: Rooms - z-20 */}
-        <div className="relative z-20">
-          <RoomSection />
-        </div>
-        
-        {/* Section 3: Amenities - z-30 */}
-        <div className="relative z-30">
-          <AmenitiesSection />
-        </div>
-        
-        {/* Section 4: Dining - z-40 */}
-        <div className="relative z-40">
-          <DiningSection />
-        </div>
-        
-        {/* Section 5: Location - z-50 */}
-        <div className="relative z-50">
-          <LocationSection />
-        </div>
-        
-        {/* Flowing sections */}
-        <GallerySection />
-        <ReviewsSection />
-        <BookingSection />
-        <ContactSection />
+        <HeroSection rootRef={heroRef} onScrollToBooking={() => bookingRef.current?.scrollIntoView({ behavior: 'smooth' })} onScrollToRooms={() => roomsRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+        <RoomSection rootRef={roomsRef} onScrollToBooking={() => bookingRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+        <AmenitiesSection rootRef={amenitiesRef} />
+        <DiningSection rootRef={diningRef} />
+        <LocationSection rootRef={locationRef} />
+        <GallerySection rootRef={galleryRef} />
+        <ReviewsSection rootRef={reviewsRef} />
+        <BookingSection rootRef={bookingRef} />
+        <ContactSection rootRef={contactRef} />
       </main>
     </div>
   );
