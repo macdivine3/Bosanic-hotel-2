@@ -47,11 +47,10 @@ function App() {
     // Normalize scroll for mobile (prevents address bar jumps)
     const normalizeScroll = ScrollTrigger.normalizeScroll({
       allowNestedScroll: true,
-      momentumLimit: 0.1,
     });
 
     return () => {
-      normalizeScroll.disable();
+      normalizeScroll?.disable();
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
@@ -74,7 +73,7 @@ function App() {
         <GallerySection rootRef={galleryRef} />
         <ReviewsSection rootRef={reviewsRef} />
         <BookingSection rootRef={bookingRef} />
-        <ContactSection rootRef={contactRef} />
+        <ContactSection rootRef={contactRef} onScrollToBooking={() => bookingRef.current?.scrollIntoView({ behavior: 'smooth' })} />
       </main>
     </div>
   );
