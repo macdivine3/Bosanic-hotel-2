@@ -150,7 +150,7 @@ export default function HeroSection({ rootRef, onScrollToBooking, onScrollToRoom
             ref={metaRef}
             className="lg:absolute top-[10vh] right-[6vw] section-label text-[#6B7280] mb-6 lg:mb-0"
           >
-            BENIN CITY • GRA
+            PORT HARCOURT • IGWURUTA (OFF AIRPORT ROAD)
           </div>
 
           {/* Main Content */}
@@ -159,15 +159,14 @@ export default function HeroSection({ rootRef, onScrollToBooking, onScrollToRoom
               ref={h1Ref}
               className="font-serif text-4xl sm:text-5xl lg:text-display text-[#11130E] mb-6 lg:mb-8 will-change-transform"
             >
-              Stay in the quiet side of Benin City.
+              Your peaceful stay, just minutes from Port Harcourt Airport.
             </h1>
 
             <p
               ref={bodyRef}
               className="font-sans text-base lg:text-body text-[#11130E]/75 mb-8 lg:mb-10 leading-relaxed lg:leading-relaxed will-change-transform"
             >
-              A small hotel with clean lines, warm service, and spaces designed
-              for rest. Close to the airport, tucked away from the noise.
+              Experience comfort, privacy, and warm hospitality in a serene environment designed for both business and leisure travelers. Whether you're arriving late or exploring Port Harcourt, Oxford Hotel & Suite offers a relaxing place to unwind.
             </p>
 
             <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-6 will-change-transform">

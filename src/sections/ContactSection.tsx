@@ -116,10 +116,10 @@ export default function ContactSection({ rootRef, onScrollToBooking }: ContactSe
                     Inquiries
                   </div>
                   <a
-                    href="mailto:nerrypraise369@gmail.com"
+                    href="mailto:"
                     className="font-sans text-lg text-[#F6F7F6] hover:text-[#2F5D50] transition-colors border-b border-[#F6F7F6]/10"
                   >
-                    nerrypraise369@gmail.com
+                    Not publicly listed
                   </a>
                 </div>
               </div>
@@ -135,16 +135,10 @@ export default function ContactSection({ rootRef, onScrollToBooking }: ContactSe
                   </div>
                   <div className="flex flex-col gap-1">
                     <a
-                      href="tel:+2347025773030"
+                      href="tel:+2349163578708"
                       className="font-sans text-lg text-[#F6F7F6] hover:text-[#2F5D50] transition-colors"
                     >
-                      +234 702 577 3030
-                    </a>
-                    <a
-                      href="tel:+2349157956558"
-                      className="font-sans text-lg text-[#F6F7F6] hover:text-[#2F5D50] transition-colors"
-                    >
-                      +234 915 795 6558
+                      +234 916 357 8708
                     </a>
                   </div>
                 </div>
@@ -159,11 +153,11 @@ export default function ContactSection({ rootRef, onScrollToBooking }: ContactSe
                   <div className="font-sans text-[10px] text-[#F6F7F6]/40 uppercase tracking-[0.2em] mb-2">
                     Location
                   </div>
-                  <p className="font-sans text-[#F6F7F6]/90 leading-relaxed">
-                    No.3 Aiyanyo Omoigui Street,<br />
-                    Off 2nd Ugbor Road, GRA,<br />
-                    Benin City, Nigeria
-                  </p>
+                   <p className="font-sans text-[#F6F7F6]/90 leading-relaxed">
+                     Ali, St. Paul's Anglican Church,<br />
+                     Off Airport Road, Igwuruta,<br />
+                     Port Harcourt, Rivers State, Nigeria
+                   </p>
                 </div>
               </div>
 
@@ -195,7 +189,7 @@ export default function ContactSection({ rootRef, onScrollToBooking }: ContactSe
         {/* Footer Bottom */}
         <div className="mt-20 pt-8 border-t border-[#F6F7F6]/10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="font-sans text-[10px] text-[#F6F7F6]/30 uppercase tracking-[0.2em]">
-            © 2026 Bosanic Hotel • Designed for rest
+            © 2026 Oxford Hotel & Suite • Designed for rest
           </div>
           <div className="flex items-center gap-8">
             <a

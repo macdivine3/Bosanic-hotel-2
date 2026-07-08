@@ -63,7 +63,7 @@ export default function Navigation({ sectionRefs }: NavigationProps) {
           onClick={() => scrollToSection('#')}
           className="font-sans text-sm font-semibold tracking-[0.2em] text-[#11130E] hover:opacity-70 transition-opacity"
         >
-          BOSANIC
+          OXFORD
         </button>
 
         {/* Desktop Navigation */}

@@ -7,9 +7,9 @@ import { ArrowRight, Plane, MapPin, Shield } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const locationFeatures = [
-  { icon: Plane, text: '5 min to Benin City Airport' },
-  { icon: MapPin, text: '10 min to city center' },
-  { icon: Shield, text: 'Secure parking available' },
+  { icon: Plane, text: 'Minutes from Port Harcourt International Airport' },
+  { icon: MapPin, text: 'Easy access via Airport Road' },
+  { icon: Shield, text: 'Quiet, secure neighborhood with on-site parking' },
 ];
 
 interface LocationSectionProps {
@@ -138,15 +138,14 @@ export default function LocationSection({ rootRef }: LocationSectionProps) {
             ref={h2Ref}
             className="font-serif text-3xl sm:text-4xl lg:text-headline text-[#11130E] mb-6 lg:mb-8 lg:max-w-[30vw] will-change-transform"
           >
-            Close to the airport, away from the noise.
+            Conveniently located off Airport Road.
           </h2>
 
           <p
             ref={bodyRef}
             className="font-sans text-base lg:text-body text-[#11130E]/75 mb-8 lg:mb-10 lg:max-w-[30vw] leading-relaxed will-change-transform"
           >
-            We're in GRA—minutes from the terminal, tucked into a leafy street
-            that stays quiet at night.
+            Situated in Igwuruta, just off Airport Road, the hotel provides easy access for travelers while offering a quiet and secure environment away from the city's busiest traffic.
           </p>
 
           {/* Location Features */}
