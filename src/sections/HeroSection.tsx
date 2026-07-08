@@ -159,7 +159,7 @@ export default function HeroSection({ rootRef, onScrollToBooking, onScrollToRoom
               ref={h1Ref}
               className="font-serif text-4xl sm:text-5xl lg:text-display text-[#11130E] mb-6 lg:mb-8 will-change-transform"
             >
-              Your peaceful stay, just minutes from Port Harcourt Airport.
+              your peacful stay, minutes from the airport.
             </h1>
 
             <p
